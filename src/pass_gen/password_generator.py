@@ -8,7 +8,18 @@ class PasswordGenerator:
         self.__length = 0
 
     def generate(self) -> str:
-        password_letters = random.sample("".join(self.__alphabet), self.__length)
+        if self.__length == 0:
+            return ""
+
+        password_letters = []
+        for charset in self.__alphabet:
+            password_letters.append(random.choice(charset))
+
+        full_alphabet = "".join(self.__alphabet)
+        while len(password_letters) < self.__length:
+            password_letters.append(random.choice(full_alphabet))
+
+        random.shuffle(password_letters)
 
         return "".join(password_letters)
 
@@ -16,22 +27,34 @@ class PasswordGenerator:
         if string.ascii_lowercase in self.__alphabet:
             return
 
-        self.__alphabet += string.ascii_lowercase
+        self.__alphabet.append(string.ascii_lowercase)
 
     def add_ascii_uppercase(self) -> None:
         if string.ascii_uppercase in self.__alphabet:
             return
 
-        self.__alphabet += string.ascii_uppercase
+        self.__alphabet.append(string.ascii_uppercase)
 
     def add_digits(self) -> None:
         if string.digits in self.__alphabet:
             return
 
-        self.__alphabet += string.digits
+        self.__alphabet.append(string.digits)
 
     def add_punctuation(self) -> None:
         if string.punctuation in self.__alphabet:
             return
 
-        self.__alphabet += string.punctuation
+        self.__alphabet.append(string.punctuation)
+
+    @property
+    def length(self) -> int:
+        return self.__length
+
+    @length.setter
+    def length(self, value: int) -> None:
+        req_symbols_len = len(self.__alphabet)
+        if value < req_symbols_len:
+            raise ValueError("length должно быть больше или равно кол-ву обязательных символов: %d" % req_symbols_len)
+
+        self.__length = value
