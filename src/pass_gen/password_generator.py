@@ -55,6 +55,6 @@ class PasswordGenerator:
     def length(self, value: int) -> None:
         req_symbols_len = len(self.__alphabet)
         if value < req_symbols_len:
-            raise ValueError("length должно быть больше или равно кол-ву обязательных символов: %d" % req_symbols_len)
+            raise ValueError("new length: %d < required symbols: %d" % (value, req_symbols_len))
 
         self.__length = value

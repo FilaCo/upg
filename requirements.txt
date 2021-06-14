@@ -1,0 +1,2 @@
+click~=8.0.1
+setuptools~=56.0.0

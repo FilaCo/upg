@@ -23,4 +23,14 @@ setup(
     packages=find_packages(where='src'),
 
     python_requires='>=3.6, <4',
+
+    py_modules=['pass_gen', 'ui'],
+    install_requires=[
+        'Click',
+    ],
+    entry_points={
+        'console_scripts': [
+            'upg = ui.password_generator_cli:cli',
+        ],
+    },
 )
